@@ -1,19 +1,26 @@
-import React from "react";
-import { NavLink } from "react-router-dom";
+import React, { Component } from 'react';
+import {NavLink} from "react-router-dom";
 
-function NavBar({dogs}) {
-    
-    const links = dogs.map(dog => (
-      <NavLink key={dog.name} to={`/dogs/${dog.name.toLowerCase()}`} >
-        {dog.name}
-      </NavLink>
-    ));
-    return (
-      <nav>
-        <NavLink exact to="/dogs">Home</NavLink>
-        {links}
-      </nav>
-    );
-  }
-
-export default NavBar;
+export default class Navbar extends Component {
+    render() {
+        return (
+            <div>
+                <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                <NavLink className="navbar-brand" to = "/">Dog Finder</NavLink>
+                <button className="navbar-toggler" type="button" >
+                    <span className="navbar-toggler-icon"></span>
+                </button>
+                <div className="collapse navbar-collapse" id="navbarNav">
+                    <ul className="navbar-nav">
+                        {this.props.dogs.map(d=>{ return (
+                            <li className="nav-item active">
+                            <NavLink className="nav-link" to = {"/"+d.name}>{d.name} <span className="sr-only">(current)</span></NavLink>
+                            </li>)
+                        })}
+                    </ul>
+                </div>
+                </nav>
+            </div>
+        )
+    }
+}
